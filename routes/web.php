@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// HOME FRONT
-Route::get('/', function () {
-    return view('guests.home');
-});
+
 
 
 // ROTTE X AUTENTICAZIONE
@@ -38,3 +35,9 @@ Route::middleware('auth')
 
     //posts resource routes
 }); 
+
+
+// HOME FRONT - messa come ultima ruoute
+Route::get('{any?}', function () {
+    return view('guests.home');
+})->where('any', '.*'); /* questo serve per atterrare su guest.home, mentre ( * )  indica tutte quelle che non c'entrano con le root di admin  */
