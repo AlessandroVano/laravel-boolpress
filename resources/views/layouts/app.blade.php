@@ -23,7 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                {{-- qui mettiamo la route che  mi riporta alla home di admin --}}
+                <a class="navbar-brand" href="{{ route('admin.home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -33,6 +34,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            {{-- target _blank mi apre la pagina di front office in una pagina differente, lasciandomi quella di admin aperta cmq --}}
+                            <a class="nav-link" target="_blank" href="{{ url('/') }}">Front office</a>
+                        </li>
+                        <li class="nav-item">
+                           {{-- qui gli diamo la rotta per atterrare alla pagina di blog --}}
+                            <a class="nav-link"  href="{{ route('admin.posts.index') }}">Blog</a>
+                        </li>
 
                     </ul>
 
