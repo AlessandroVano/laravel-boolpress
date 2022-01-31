@@ -40,7 +40,11 @@
                         </li>
                         <li class="nav-item">
                            {{-- qui gli diamo la rotta per atterrare alla pagina di blog --}}
-                            <a class="nav-link"  href="{{ route('admin.posts.index') }}">Blog</a>
+                            <a class="nav-link
+
+                            {{-- qui lasciamo in grassetto la scritta quando siamo su quella pagina --}}
+                            @if(Request::route()->getName() == 'admin.posts.index') active @endif"  
+                            href="{{ route('admin.posts.index') }}">Blog</a>
                         </li>
 
                     </ul>
