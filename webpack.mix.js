@@ -12,4 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/front-office.js', 'public/js') /* richiamo file js (della guests home.blade) */
     .sass('resources/sass/app.scss', 'public/css');
