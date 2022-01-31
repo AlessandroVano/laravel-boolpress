@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-/* use illuminate\Support\Facades\Auth; */
+/* use illuminate\Support\Facades\Auth; 
 
 /*
 |--------------------------------------------------------------------------
