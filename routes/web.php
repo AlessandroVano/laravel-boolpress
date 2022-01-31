@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // HOME FRONT
 Route::get('/', function () {
-    return view('welcome');
+    return view('guests.home');
 });
 
 

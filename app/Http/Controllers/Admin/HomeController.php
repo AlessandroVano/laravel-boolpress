@@ -14,6 +14,6 @@ class HomeController extends Controller
      public function index() {
         /*  return 'QUESTA è LA SEZIONE ADMIN'; */
 
-         return view('home');
+         return view('admin.home');
      }
 }
