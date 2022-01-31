@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
+
       {{-- nodo ingresso applicazione vue --}}
 
       <div id="root"> </div>
