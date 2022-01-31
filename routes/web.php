@@ -34,6 +34,8 @@ Route::middleware('auth')
     Route::get('/', 'HomeController@index')->name('home');
 
     //posts resource routes
+
+    Route::resource('/posts', 'PostController');
 }); 
 
 
