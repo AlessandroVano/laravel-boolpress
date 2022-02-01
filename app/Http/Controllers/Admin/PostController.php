@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 /* importiamo il modello */
 
 use App\Post;
@@ -48,6 +50,27 @@ class PostController extends Controller
 
         $data = $request->all();
         dump($data);
+
+        // CREAZIONE NUOVO POST
+        $new_post = new Post();
+
+        // GENERAZIONE SLUG UNIVOCO
+         $slug = Str::slug($data['title'], '-'); // mi genera titoli -2 -3 -4 -5 in seguenza ad ogni creazione post
+         $count = 1;
+         $base_slug = $slug; // titolo della form
+
+         // ESECUZIONE CICLO SE HO TROVATO UN POST CON LO SLUG ATTUALE
+         while(Post::where('slug', $slug)->first()) {
+             //genera un nuovo slug con il contatore annesso come riportato a riga 58
+             $slug = $base_slug . '-' . $count;
+             $count++;
+         }
+         $data['slug'] = $slug;
+
+         $new_post->fill($data);
+         $new_post->save();
+
+         return redirect()->route('admin.posts.show', $new_post->slug);
     }
 
     /**
