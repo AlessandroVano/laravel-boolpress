@@ -117,7 +117,11 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          // richiamo funzione validazione
+          $request->validate($this->validation_rules(), $this->validation_messages());
+
+          $data = $request->all();
+          dump($data);
     }
 
     /**
