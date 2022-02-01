@@ -30,7 +30,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return ('create new post');
+     /*    return ('create new post'); */
+
+     return view('admin.posts.create');
     }
 
     /**
@@ -54,18 +56,10 @@ class PostController extends Controller
     {
         //
         /* 1) */
-        /* return 'show detail */
+         return 'show detail' ;
 
-           /* 3) */
-        /* $post = Post::where('slug', slug)->first();  /* il firtst prende tutto quello che è vero 
+          
         
-        
-               if(! $post) {
-                 abort(404);
-                  } 
-        
-             return view('admin.post.show, compatct('post'))
-        */
         
     
      }
