@@ -121,7 +121,32 @@ class PostController extends Controller
           $request->validate($this->validation_rules(), $this->validation_messages());
 
           $data = $request->all();
-          dump($data);
+         /*  dump($data); */
+            
+             // UPDATE RECORD
+             $post = Post::find($id);
+
+          // update dello slug solo se il titolo cambia
+          if($data['title'] != $post->title ) {
+            $slug = Str::slug($data['title'], '-'); // mi genera titoli -2 -3 -4 -5 in seguenza ad ogni creazione post
+            $count = 1;
+            $base_slug = $slug; // titolo della form
+   
+            // ESECUZIONE CICLO SE HO TROVATO UN POST CON LO SLUG ATTUALE
+            while(Post::where('slug', $slug)->first()) {
+                //genera un nuovo slug con il contatore annesso come riportato a riga 58
+                $slug = $base_slug . '-' . $count;
+                $count++;
+            }
+            $data['slug'] = $slug;
+          }
+          else {
+              $data['slug'] = $post->slug;
+          }
+
+          $post->update($data);
+
+          return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
