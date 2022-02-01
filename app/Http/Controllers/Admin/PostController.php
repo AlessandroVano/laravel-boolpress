@@ -100,9 +100,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find();
+        $post = Post::find($id);
 
-        if($post) {
+        if(! $post) {
             abort(404);
         }
         return view('admin.posts.edit', compact('post'));
