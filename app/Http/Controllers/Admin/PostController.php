@@ -52,17 +52,18 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
-        /* 1) */
-         return 'show detail' ;
-
-          
-        
-        
-    
-     }
+        /*  return 'show detail' */
+         $post = Post::where('slug', $slug)->first();  // il firtst prende tutto quello che è vero 
+         
+               if(! $post) {
+                 abort(404);
+                  } 
+             return view('admin.posts.show', compact('post'));
+                
+      }
+   
 
     /**
      * Show the form for editing the specified resource.
