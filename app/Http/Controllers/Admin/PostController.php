@@ -43,7 +43,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          // richiamo funzione validazione
+          $request->validate($this->validation_rules(), $this->validation_messages());
+
+        $data = $request->all();
+        dump($data);
     }
 
     /**
@@ -98,4 +102,24 @@ class PostController extends Controller
     {
         //
     }
+
+    // VALIDAZIONI 
+
+    private function validation_rules() {
+        return [
+            'title' => 'required|max:255',
+            'body' => 'required'
+        ];
+    }
+
+
+    // VALIDAZIONI 
+
+    private function validation_messages() {
+        return [
+            'required' => 'The :attribute is a required filed!!!!',
+            'max' => 'Max :max characters allowed for the :attribute'
+        ];
+    }
 }
+
