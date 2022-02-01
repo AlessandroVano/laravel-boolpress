@@ -4,6 +4,13 @@
  <div class="container">
      <h1>Blog</h1>
 
+     @if (session('deleted'))
+         <div class="alert alert-success">
+             <strong> {{ session('deleted') }}  </strong>
+             Permanently deleted
+         </div>
+     @endif
+
      @if ($posts->isEmpty()) {{-- questo ritorna un true o false quando non trova posts ci fa capire che effettivamente non ci sono --}}
      <p>Nessun post trovato. <a href="{{route('admin.posts.create')}}"> Crea un post ora!!</a></p>
      @else
@@ -30,6 +37,9 @@
                              <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
+
+                                <input class="btn btn-danger" type="submit" value="Delete"
+                                onclick="return confirm('sicuro sicuro sicuro??')">
                             </form>
                          </td>
                      </tr>
