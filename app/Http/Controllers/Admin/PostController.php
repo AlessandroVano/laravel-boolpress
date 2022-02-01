@@ -100,7 +100,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return 'edit';
+        $post = Post::find();
+
+        if($post) {
+            abort(404);
+        }
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
