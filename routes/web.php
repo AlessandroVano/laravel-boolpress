@@ -36,11 +36,12 @@ Route::middleware('auth')
     //posts resource routes
 
     Route::resource('/posts', 'PostController');
+    
+    //Category page route
+    Route::get('/categories/{id}', 'CategoryController@show')->name('category');
 }); 
 
 
-//Category page route
-Route::get('/categories/{id}', 'CategoryController@show')->name('category');
 
 
 // HOME FRONT - messa come ultima ruoute
