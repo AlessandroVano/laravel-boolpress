@@ -31,7 +31,7 @@
                          <td>
                              
                            @if ($post->category)
-                           <a href="{{ route('admin.category', $post->category->id) }}">{{ $post->category->name }}</a>
+                        <a href="{{ route('admin.category', $post->category->id) }}"> {{ $post->category->name }} </a>
                            @else
                             Uncategorized  
                             @endif
