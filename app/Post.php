@@ -14,7 +14,8 @@ class Post extends Model
 
 
     // RELAZIONE CATEGORIE
-
+         // post - category;
+         
     public function category() {
         return $this->belongsTo('App\Category');
     }
