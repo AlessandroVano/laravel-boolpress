@@ -172,17 +172,19 @@ class PostController extends Controller
     private function validation_rules() {
         return [
             'title' => 'required|max:255',
-            'body' => 'required'
+            'body' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 
 
-    // VALIDAZIONI 
+    // VALIDAZIONI /*  */
 
     private function validation_messages() {
         return [
             'required' => 'The :attribute is a required filed!!!!',
-            'max' => 'Max :max characters allowed for the :attribute'
+            'max' => 'Max :max characters allowed for the :attribute',
+            'category_id.exists' => 'The selected category does not exists.'
         ];
     }
 }
