@@ -39,6 +39,10 @@ Route::middleware('auth')
 }); 
 
 
+//Category page route
+Route::get('/categories/{id}', 'CategoryController@show')->name('category');
+
+
 // HOME FRONT - messa come ultima ruoute
 Route::get('{any?}', function () {
     return view('guests.home');
