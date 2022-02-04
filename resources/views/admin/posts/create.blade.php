@@ -50,6 +50,28 @@
                    @enderror
                </div>
 
+               {{-- TAGS --}}
+
+               <div class="mb-3">
+                   <h4>Tags</h4>
+                   @foreach ($tags as $tag )
+                       <span class="d-inline-block mr-3">
+                           {{-- name='tags[] mettiamo questo almeno gli diciamo di inviare 1 o + numeri di tag definiti in precedenza' --}}
+                           <input type="checkbox" name="tags[]" id="tag{{ $loop->iteration }}" value=" {{ $tag->id }}"
+                           {{-- cerco il valore id dentro l'array    con l'arrey vuoto non romperà le balle al caricamento della pagina --}}
+                            @if (in_array($tag->id, old('tags', [] )))  checked @endif
+                           > 
+
+                           <label for="tag{{ $loop->iteration }}">
+                                  {{ $tag->name }}
+                           </label>
+                       </span>
+                   @endforeach
+                   @error('tags')
+                   <div class="text-danger"> {{ $message }} </div>
+                   @enderror
+               </div>
+
             <button class="btn btn-primary" type="submit">Create Post</button>
         </form>
     </div>
