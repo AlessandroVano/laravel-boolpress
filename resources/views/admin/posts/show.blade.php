@@ -16,7 +16,7 @@
          <a class="btn btn-primary" href=" {{ route('admin.posts.index') }} ">Back to Blog</a>
      </div>
 
-     <div class="row">
+     <div class="row mb-5">
          <div class="col-md-6">
              {!! $post->body  !!}
          </div>
@@ -24,5 +24,15 @@
              Image...
          </div>
      </div>
+
+       @if(! $post->tags->isEmpty())
+           <h4>Tags</h4>
+
+           @foreach ($post->tags as $tag )
+               <span class="badge badge-primary">{{ $tag->name }}</span>
+           @endforeach
+       @else
+            <p>Non abbiamo tag per questo post.</p>
+       @endif
  </div>
 @endsection
