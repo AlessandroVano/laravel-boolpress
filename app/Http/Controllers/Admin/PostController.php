@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Tag;
 
 /* importiamo il modello */
 
@@ -21,9 +22,10 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+        $tags = Tag::all();
     /*     dump($posts);
  */
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts', 'tags'));
     }
 
     /**
@@ -36,8 +38,9 @@ class PostController extends Controller
      /*    return ('create new post'); */
 
      $categories = Category::all();
+     $tags = Tag::all();
 
-     return view('admin.posts.create', compact('categories'));
+     return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -52,7 +55,8 @@ class PostController extends Controller
           $request->validate($this->validation_rules(), $this->validation_messages());
 
         $data = $request->all();
-        dump($data);
+      /*   dump($data); */
+    /*   dd($data); */
 
         // CREAZIONE NUOVO POST
         $new_post = new Post();
@@ -72,6 +76,14 @@ class PostController extends Controller
 
          $new_post->fill($data);
          $new_post->save();
+
+          //   SALVA IN PIVOT RELAZIONE TRA  NUOVO POST CON TAGS SELEZ. DALLA FORM
+
+          if(array_key_exists('tags', $data)) {
+              $new_post->tags()->attach($data['tags']);
+          }
+
+
 
          return redirect()->route('admin.posts.show', $new_post->slug);
     }
@@ -105,11 +117,14 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $categories = Category::all();
+        $tags = Tag::all();
+
+      /*   dump($post->tags); */
 
         if(! $post) {
             abort(404);
         }
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -126,6 +141,7 @@ class PostController extends Controller
 
           $data = $request->all();
          /*  dump($data); */
+           /*   dd($data);  */
             
              // UPDATE RECORD
              $post = Post::find($id);
@@ -150,6 +166,17 @@ class PostController extends Controller
 
           $post->update($data);
 
+          // UPDATE RELAZIONI DELLA PIVOT TRA IL POST AGGIORNATO  E I TAGS
+
+               if (array_key_exists('tags', $data)) {
+                   // aggiunta di nuovi tags (rows in pivo) : aggiunta/ rimozione
+                  $post->tags()->sync($data['tags']);
+
+               } else {
+                   // nessun checkobox x tag selezionato quindi puliamo tutto
+                  $post->tags()->detach();
+               }
+
           return redirect()->route('admin.posts.show', $post->slug);
     }
 
@@ -165,6 +192,9 @@ class PostController extends Controller
 
         $post->delete();
 
+         // stessa cosa che fa l'on delete a riga 35 del create post tag (cancella le relazioni);
+        /* $post->tags()->detach(); */
+
         return redirect()->route('admin.posts.index')->with('deleted', $post->title);
     }
 
@@ -175,6 +205,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+          /*   'tags' => 'nallable|exists:tags,id' */ /* o sono vuoti o sono uno degli id che abbiamo, altrimenti errore di validazione */
         ];
     }
 
@@ -185,7 +216,9 @@ class PostController extends Controller
         return [
             'required' => 'The :attribute is a required filed!!!!',
             'max' => 'Max :max characters allowed for the :attribute',
-            'category_id.exists' => 'The selected category does not exists.'
+            'category_id.exists' => 'The selected category does not exists.',
+         /*    'tags.exists' => 'The selected category does not exists.' */
+
         ];
     }
 }
