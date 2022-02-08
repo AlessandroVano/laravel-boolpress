@@ -2035,7 +2035,7 @@ __webpack_require__.r(__webpack_exports__);
     // 9) funzione x troncare i caratteri se raggiungono il massimo consentito
     getExcerpt: function getExcerpt(text, maxLength) {
       if (text.length > maxLength) {
-        return text.substr(0, maxLength) + '...'; // text (prendo sottostringa)
+        return text.substring(0, maxLength) + '...'; // text (prendo sottostringa)
       } // se sono sotto alla lunghezza consentita
 
 
@@ -2046,13 +2046,13 @@ __webpack_require__.r(__webpack_exports__);
     // b) gli passo la lingua
     // c) creazione istanza con metodo format e gli diamo dentro il date
     // d) ritorniamo il formatted
-    FormatData: function FormatData(postDate) {
+    formatDate: function formatDate(postDate) {
       /*   console.log(postDate); */
       var date = new Date(postDate);
       /* console.log(date);  */
 
       var formatted = new Intl.DateTimeFormat('it-IT').format(date);
-      return formatted;
+      return date;
     }
   }
 });

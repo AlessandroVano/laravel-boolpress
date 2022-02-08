@@ -7,7 +7,7 @@
         <article class="mb-4" v-for="post in posts" :key="`post-${ post.id }`"> <!-- la key da ci da i riferimenti se si va a modificare qualcosa nel database del post -->
              <h2>{{ post.title }}</h2>
              <!-- 12) ritorniamo la funzione delle date -->
-             <div class="mb-4">{{ formatDate(post.created_at) }}</div>
+              <div class="mb-4">{{  formatDate(post.created_at) }}</div> 
              <!-- 10) richiamo la funzione dei caratteri e gli do il massimo di 100 caratteri superati quelli con la funzione sotto mi metterà i puntini quando supero i 100 -->
              <p>{{  getExcerpt(post.body, 100)  }}</p>
         </article>
@@ -119,8 +119,8 @@ export default {
          const date = new Date(postDate);
          /* console.log(date);  */
           
-          const formatted = new Intl.DateTimeFormat('it-IT').format(date)
-           return formatted;
+            const formatted = new Intl.DateTimeFormat('it-IT').format(date) 
+           return date; 
       }
     }
 }
