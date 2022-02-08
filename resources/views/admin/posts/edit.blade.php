@@ -64,6 +64,8 @@
                              @if  ($errors->any() && in_array($tag->id, old('tags')))
                                checked
                                {{-- questa linea praticamente mi va a pescare i tag dentro all'array --}}
+                               {{-- tiene anche conto dei tag selezionati in precedenze e quindi in caso di errore li tiene cmq selezionati al refresh della pagina --}}
+                               {{-- any() questo serve che se un burlone ci va a modifica l'id lui fa un check e controlla gli id che ci sono nel db se il numero degli id risultano corretti lui esegue altrimenti ci da errore  --}}
                                @elseif(!$errors->any() && $post->tags->contains($tag->id)) {{-- questo serebbe come un in_array ma lo fa su una collection --}}
                                  checked
                                 @endif> 

@@ -14,6 +14,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+}); */
+
+// TEST ROUTE API
+
+/* le nostre url inziano con/api/... */
+Route::get('/test', function() {
+  /*   return 'Hello'; */
+
+  // return dati json
+
+  /* return response()->json([ */
+      /* 'clients' => ['Alessandro', 'Federico', 'Calogero'], */  /* 'client', 'lorem'  (sono i nomi dei nostri oggetti*/
+      /* 'lorem' => 'ipsum', */
+  /* ]); */
+});
+
+
+// TUTTI GLI ENDPOINT PER LE API
+
+Route::namespace('Api')->group(function() {       /* name space (Api(cartella che ho creato dove ho il controller))
+                                                                     (group (mi prende tutto il gruppo che creo in seguito)) */
+  // archivio dei post  
+  Route::get('/posts', 'PostController@index');
 });

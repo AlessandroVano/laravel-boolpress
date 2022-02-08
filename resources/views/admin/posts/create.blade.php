@@ -16,6 +16,7 @@
        @endif
 
         <form action="{{ route('admin.posts.store') }}" method="POST">
+            {{-- comando laravel che assicura che la chiamata avvenga tramite una form --}}
             @csrf
 
             <div class="mb-3">

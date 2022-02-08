@@ -169,7 +169,8 @@ class PostController extends Controller
           // UPDATE RELAZIONI DELLA PIVOT TRA IL POST AGGIORNATO  E I TAGS
 
                if (array_key_exists('tags', $data)) {
-                   // aggiunta di nuovi tags (rows in pivo) : aggiunta/ rimozione
+                   // aggiunta di nuovi tags (rows in pivo) : aggiunta/ rimozione 
+                   // aggiungo o rimuovo tutti i tag che ho selezionato nella form
                   $post->tags()->sync($data['tags']);
 
                } else {
@@ -205,7 +206,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-          /*   'tags' => 'nallable|exists:tags,id' */ /* o sono vuoti o sono uno degli id che abbiamo, altrimenti errore di validazione */
+             'tags' => 'nullable|exists:tags,id'  /* o sono vuoti o sono uno degli id che abbiamo, altrimenti errore di validazione */
         ];
     }
 
@@ -217,7 +218,7 @@ class PostController extends Controller
             'required' => 'The :attribute is a required filed!!!!',
             'max' => 'Max :max characters allowed for the :attribute',
             'category_id.exists' => 'The selected category does not exists.',
-         /*    'tags.exists' => 'The selected category does not exists.' */
+            'tags.exists' => 'The selected category does not exists.' 
 
         ];
     }
