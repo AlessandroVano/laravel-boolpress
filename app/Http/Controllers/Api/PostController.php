@@ -34,10 +34,11 @@ class PostController extends Controller
         
         /* B. */
         $post = Post::where('slug', $slug)->with(['category', 'tags'])->first();
-      /*    if(! $post) {
+        /* serve per determinare se esiste oppure no quindi se scrivo uno slug non esistente mi porta alla pagina 404 che ho creato */
+          if(! $post) {
            $post['not_found'] = true;
            
-         } */
+         } 
         // ritorno dati in json
         return response()->json($post);
     }

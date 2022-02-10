@@ -46,13 +46,13 @@ data() {
          .then(res => {
              console.log(res.data);
              this.post = res.data;
-        /*      if(res.data.not_found) {
+              if(res.data.not_found) {
                  console.log('redirect 404');
                  this.$router.push({ name:'not-found' });
              } else {
                  this.post = res.data;
              }
-             this.post = res.data; */
+             this.post = res.data; 
          })
          .catch(err => log.error(err));
     }
