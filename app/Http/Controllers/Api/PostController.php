@@ -22,4 +22,23 @@ class PostController extends Controller
 
        return response()->json($posts);    /* json() mi prende i dati in struttura php e li trasforma in formato json */
     }
+
+    /* pagina di dettaglio */
+
+    public function show($slug) {
+
+        // prendere post con lo slug
+
+        /* A. post senza tag e categorie */
+      /*   $post = Post::where('slug', $slug)->first(); */ /*  $slug parametro passato nella rotta  del controller */
+        
+        /* B. */
+        $post = Post::where('slug', $slug)->with(['category', 'tags'])->first();
+      /*    if(! $post) {
+           $post['not_found'] = true;
+           
+         } */
+        // ritorno dati in json
+        return response()->json($post);
+    }
 }

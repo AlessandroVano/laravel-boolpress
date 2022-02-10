@@ -39,4 +39,8 @@ Route::namespace('Api')->group(function() {       /* name space (Api(cartella ch
                                                                      (group (mi prende tutto il gruppo che creo in seguito)) */
   // archivio dei post  
   Route::get('/posts', 'PostController@index');
+
+  // rotta x singolo post
+
+  Route::get('/posts/{slug}', 'PostController@show');
 });
