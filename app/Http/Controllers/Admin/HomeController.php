@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use App\Mail\SendWelcomeEmail;
+
 class HomeController extends Controller
 {
     /**
@@ -14,6 +18,20 @@ class HomeController extends Controller
 
      public function index() {
         /*  return 'QUESTA è LA SEZIONE ADMIN'; */
+
+      // TEST INVIO MAIL
+
+      // VERSIONE A (dati statici)
+       /* Mail::to('account@gmail.it')->send(new SendWelcomeEmail()); */
+
+
+       // VERSIONE B (email utente loggato nel back-end)
+     /*   Mail::to(Auth::user())->send(new SendWelcomeEmail()); */
+         
+     // versione c (passaggio dati a classe -> vista x email)
+       Mail::to(Auth::user()->email)->send(new SendWelcomeEmail(Auth::user()->name)); // oggetto della classe welcome che ci setta il nome che abbiamo dato nel costruttore del SendWelcomeEmail.php
+
+
 
 
         // CARBON
