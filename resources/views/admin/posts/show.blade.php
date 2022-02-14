@@ -21,12 +21,17 @@
      </div>
 
      <div class="row mb-5">
-         <div class="col-md-6">
+         <div class="{{$post->cover ? 'col-md-6' : 'col'}}"> {{-- se l'immagine è presente fai la divisione in col-md-6, altrimenti fai gestire tutto a bootstrap in base al contenuto --}}
              {!! $post->body  !!}
          </div>
-         <div class="col-md-6">
-             Image...
-         </div>
+         @if ($post->cover)
+             
+           <div class="col-md-6">
+               <img class="img-fluid" 
+                    src="{{asset('storage/' . $post->cover)}}" 
+                    alt="{{$post->title}}">
+              </div>
+       @endif
      </div>
 
        @if(! $post->tags->isEmpty())
