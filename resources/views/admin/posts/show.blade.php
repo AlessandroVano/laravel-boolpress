@@ -3,6 +3,10 @@
 @section('content')
  <div class="container">
      <h1 class="mb-5"> {{ $post->title  }} </h1>
+      <h4 class="mb-5"> {{ $post->created_at->format('l d/m/Y') }}</h4>
+      <h4 class="mb-5"> {{ $post->created_at->isoFormat('dddd DD/MM/YY') }}</h4>
+      <h4 class="mb-5"> {{ $post->created_at->diffForHumans() }}</h4> {{-- da quando è stato creato ad oggi --}}
+
 
      <div class="mb-5">
      

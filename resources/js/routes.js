@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
- /* import { component } from 'vue/types/umd';  */
+/*   import { component } from 'vue/types/umd';   */
 
 // COMPONENTI PER ROTTA
 import Home from './pages/Home.vue';
