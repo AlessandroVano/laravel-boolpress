@@ -6,11 +6,13 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Tag;
 
 /* importiamo il modello */
 
 use App\Post;
+use Illuminate\Support\Facades\Storage as FacadesStorage;
 
 class PostController extends Controller
 {
@@ -56,8 +58,15 @@ class PostController extends Controller
 
         $data = $request->all();
       /*   dump($data); */
-    /*   dd($data); */
+     /*   dd($data);  */
 
+       // AGGIUNTA IMMAGINE SE PRESENTE PER IL POST DA CREARE
+       if(array_key_exists('cover', $data)) {
+           // se abbiamo l'immagine bisogna salvarla nello store, ottenere posizione e nome del file caricato da salvare nel db
+           $img_path = Storage::put('posts-cover', $data['cover']);
+           $data['cover'] = $img_path;
+       }
+ 
         // CREAZIONE NUOVO POST
         $new_post = new Post();
 
@@ -146,6 +155,19 @@ class PostController extends Controller
              // UPDATE RECORD
              $post = Post::find($id);
 
+             /* AGGIUNTA / UPDATE IMG DEL POST (SE PRESENTE) */
+
+             if(array_key_exists('cover', $data)) {
+                 /* rimozione se era già settata */
+                 if($post->cover) {
+                     Storage::delete($post->cover);
+                 }
+                 /* aggiunta dell'img nuova, ottenere url e salvarlo in db */
+
+                 $data['cover'] = Storage::put('posts-covers', $data['cover'] );
+             }
+
+
           // update dello slug solo se il titolo cambia
           if($data['title'] != $post->title ) {
             $slug = Str::slug($data['title'], '-'); // mi genera titoli -2 -3 -4 -5 in seguenza ad ogni creazione post
@@ -191,6 +213,12 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
+        // controllo presenza cover
+        // questo mi cancella anche l'immagine della cartella dove sono tenute
+        if($post->cover) {
+            Storage::delete($post->cover);
+        }
+
         $post->delete();
 
          // stessa cosa che fa l'on delete a riga 35 del create post tag (cancella le relazioni);
@@ -206,7 +234,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-             'tags' => 'nullable|exists:tags,id'  /* o sono vuoti o sono uno degli id che abbiamo, altrimenti errore di validazione */
+             'tags' => 'nullable|exists:tags,id',  /* o sono vuoti o sono uno degli id che abbiamo, altrimenti errore di validazione */
+              'cover'  => 'nullable|file|mimes:jpeg,bmp,png,jpg,webp',
         ];
     }
 
