@@ -15,7 +15,7 @@
        </div>
        @endif
 
-        <form action="{{ route('admin.posts.store') }}" method="POST">
+        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
             {{-- comando laravel che assicura che la chiamata avvenga tramite una form --}}
             @csrf
 
@@ -71,6 +71,14 @@
                    @error('tags')
                    <div class="text-danger"> {{ $message }} </div>
                    @enderror
+               </div>
+               {{-- POST COVER IMAGE --}}
+               <div class="mb-3">
+                   <label  class="form-label" for="cover">post image</label>
+                   <input type="file" class="form-control-file" name="cover" id="cover">
+                   @error('cover')
+                   <div class="text-danger">{{ $message }}</div>
+               @enderror
                </div>
 
             <button class="btn btn-primary" type="submit">Create Post</button>
