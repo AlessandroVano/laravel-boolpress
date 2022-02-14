@@ -16,7 +16,9 @@ class PostController extends Controller
        /* $posts = Post::all(); */
 
        // con paginazione
-       $posts = Post::paginate(3);
+      /*  $posts = Post::paginate(3); */
+       // ordinazione post dal più recente
+      $posts = Post::orderBy('id', 'desc')->paginate(3);
 
        
 
@@ -37,8 +39,9 @@ class PostController extends Controller
         /* serve per determinare se esiste oppure no quindi se scrivo uno slug non esistente mi porta alla pagina 404 che ho creato */
           if(! $post) {
            $post['not_found'] = true;
-           
-         } 
+         } elseif ($post->cover) {
+              $post->cover = url('storage/' . $post->cover);
+         }
         // ritorno dati in json
         return response()->json($post);
     }
