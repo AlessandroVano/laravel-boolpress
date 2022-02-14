@@ -4,10 +4,10 @@
      <div v-if="post">
          <h1>{{ post.title }}</h1>
 
-      <!--    <h4>Category: {{ post.category.name }}</h4> -->
+       <h4>Category: {{ post.category.name }}</h4> 
 
   
-      <!--    <Tags class="mb-5" :list="post.tags" /> -->
+       <Tags  :list="post.tags" /> 
 
          <p>{{ post.body}}</p>
 
@@ -20,13 +20,13 @@
 
 <script>
 import axios from 'axios';
-/* import Tags from '../components/Tags'; */
+ import Tags from '../components/Tags'; 
 import Loader from '../components/Loader';
 
 export default {
 name: 'PostDetail',
 components: {
-/*   Tags, */
+   Tags, 
   Loader,
 },
 
