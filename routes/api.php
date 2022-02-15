@@ -43,4 +43,7 @@ Route::namespace('Api')->group(function() {       /* name space (Api(cartella ch
   // rotta x singolo post
 
   Route::get('/posts/{slug}', 'PostController@show');
+
+  // Contact
+  Route::post('/contacts', 'ContactController@store');
 });
