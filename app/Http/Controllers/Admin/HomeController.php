@@ -26,10 +26,10 @@ class HomeController extends Controller
 
 
        // VERSIONE B (email utente loggato nel back-end)
-     /*   Mail::to(Auth::user())->send(new SendWelcomeEmail()); */
+        /* Mail::to(Auth::user())->send(new SendWelcomeEmail(Auth::user()));  */
          
      // versione c (passaggio dati a classe -> vista x email)
-       Mail::to(Auth::user()->email)->send(new SendWelcomeEmail(Auth::user()->name)); // oggetto della classe welcome che ci setta il nome che abbiamo dato nel costruttore del SendWelcomeEmail.php
+        Mail::to(Auth::user()->email)->send(new SendWelcomeEmail(Auth::user()->name));  // oggetto della classe welcome che ci setta il nome che abbiamo dato nel costruttore del SendWelcomeEmail.php
 
 
 
